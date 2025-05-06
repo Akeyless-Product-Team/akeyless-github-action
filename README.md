@@ -258,6 +258,73 @@ This example demonstrates fetching an AWS Rotated Secret from Akeyless.
               csr-data-base64: "csr_data_base64"
 ```
 
+
+### Create Secret Demo
+
+```yaml
+name: Create Secret With Akeyless
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create_secret:
+    runs-on: ubuntu-latest
+    name: Create Akeyless Secret
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Enable Debug Logging
+        run: |
+          echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+          echo "ACTIONS_RUNNER_DEBUG=true" >> $GITHUB_ENV
+
+      - name: Create a new secret in Akeyless
+        uses: Akeyless-Product-Team/akeyless-github-action@main
+        with:
+          access-type: access_key
+          access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
+          access-key: ${{ secrets.AKEYLESS_ACCESS_KEY }}
+          create-secret-name: "/my_new_secret"
+          create-secret-value: "SuperSecretValue"
+```
+
+### Update Secret Demo
+
+```yaml
+name: Update Secret With Akeyless
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update_secret:
+    runs-on: ubuntu-latest
+    name: Update Akeyless Secret
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Enable Debug Logging
+        run: |
+          echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+          echo "ACTIONS_RUNNER_DEBUG=true" >> $GITHUB_ENV
+
+      - name: Update an existing secret in Akeyless
+        uses: Akeyless-Product-Team/akeyless-github-action@main
+        with:
+          access-type: access_key
+          access-id: ${{ secrets.AKEYLESS_ACCESS_ID }}
+          access-key: ${{ secrets.AKEYLESS_ACCESS_KEY }}
+          update-secret-name: "/my_secret"
+          update-secret-value: "UpdatedSuperSecretValue"
+```
+
 ### Parse JSON secrets
 
 By default, the action sets the environment variable value to the entire JSON string in the secret value. Set `parse-json-secrets` to `true` to create environment variables for each key/value pair in the secret JSON.
