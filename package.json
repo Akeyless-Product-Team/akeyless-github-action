@@ -19,6 +19,6 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "mock-fs": "^5.2.0"
+    "mock-fs": "^5.5.0"
   }
 }
